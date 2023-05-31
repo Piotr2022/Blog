@@ -1,8 +1,29 @@
 ﻿@page
 @model PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Dziękuję że mnie kliknąłeś";
 }
-<h1>@ViewData["Title"]</h1>
+<audio id="myAudio" src="/GigaBlogMuzyka.mp3" autoplay></audio>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<center>
+
+    <img src="/GigaBlogLogo.jpg" onclick="playAudio()" height="1000px" width="1000px" />
+    <h1 style="font-weight:bold; text-shadow: 5px 5px 10px black;">@ViewData["Title"]</h1>
+</center>
+
+
+
+<script>
+    function playAudio() {
+        var audioElement = document.getElementById("myAudio");
+        if(audioElement.paused)
+        {
+            audioElement.play();
+        }
+        else
+        {
+            audioElement.pause();
+        }
+ 
+    }
+</script>
