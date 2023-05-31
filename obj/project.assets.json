@@ -2454,19 +2454,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\poker\\.nuget\\packages\\": {}
+    "C:\\Users\\MatAdmin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\poker\\Source\\Repos\\Blog\\Blog.csproj",
+      "projectUniqueName": "C:\\Users\\MatAdmin\\Source\\Repos\\Blog\\Blog.csproj",
       "projectName": "Blog",
-      "projectPath": "C:\\Users\\poker\\Source\\Repos\\Blog\\Blog.csproj",
-      "packagesPath": "C:\\Users\\poker\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\poker\\Source\\Repos\\Blog\\obj\\",
+      "projectPath": "C:\\Users\\MatAdmin\\Source\\Repos\\Blog\\Blog.csproj",
+      "packagesPath": "C:\\Users\\MatAdmin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MatAdmin\\Source\\Repos\\Blog\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\poker\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MatAdmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2532,7 +2532,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

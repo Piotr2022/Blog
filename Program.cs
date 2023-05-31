@@ -14,6 +14,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdministratorRole",
+         policy => policy.RequireRole("Administrator"));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
