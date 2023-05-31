@@ -12,6 +12,10 @@ html {
   position: relative;
   min-height: 100%;
 }
+.nav-item
+{
+    font-size:50px;
+}
 
 body {
   margin-bottom: 60px;

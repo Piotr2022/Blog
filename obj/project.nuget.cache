@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gaLI8lGq9gwAemKeHTLPIB5NAI067+a894W8l6lHOlvU3Azq90kWsPDcaKGftEd/L6ZsUigwxwMCB5fvHgn8cA==",
+  "dgSpecHash": "yein2EyDldJKQnWsQG7g4G7iPIsZN6nv4JjijFuPbbM0TxFqjFz01JjMncDs46Fb57NA6U0UnJSAWLgKgImh3Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\poker\\Source\\Repos\\Blog\\Blog.csproj",
+  "projectFilePath": "C:\\Users\\poker\\source\\repos\\Blog\\Blog.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\poker\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\poker\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.10\\microsoft.aspnetcore.cryptography.internal.6.0.10.nupkg.sha512",

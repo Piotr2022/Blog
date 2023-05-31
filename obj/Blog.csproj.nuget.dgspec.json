@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\poker\\Source\\Repos\\Blog\\Blog.csproj": {}
+    "C:\\Users\\poker\\source\\repos\\Blog\\Blog.csproj": {}
   },
   "projects": {
-    "C:\\Users\\poker\\Source\\Repos\\Blog\\Blog.csproj": {
+    "C:\\Users\\poker\\source\\repos\\Blog\\Blog.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\poker\\Source\\Repos\\Blog\\Blog.csproj",
+        "projectUniqueName": "C:\\Users\\poker\\source\\repos\\Blog\\Blog.csproj",
         "projectName": "Blog",
-        "projectPath": "C:\\Users\\poker\\Source\\Repos\\Blog\\Blog.csproj",
+        "projectPath": "C:\\Users\\poker\\source\\repos\\Blog\\Blog.csproj",
         "packagesPath": "C:\\Users\\poker\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\poker\\Source\\Repos\\Blog\\obj\\",
+        "outputPath": "C:\\Users\\poker\\source\\repos\\Blog\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\poker\\AppData\\Roaming\\NuGet\\NuGet.Config",
