@@ -11,5 +11,10 @@ namespace Blog.Models
         [StringLength(256, ErrorMessage = "Maksymalna długość znaków wynosi 256.")]
 
         public string Body { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime CommitDate { get; set; } = DateTime.Now;
+       
+
     }
 }

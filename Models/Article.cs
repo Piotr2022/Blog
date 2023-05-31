@@ -13,8 +13,7 @@ namespace Blog.Models
         public String Title { get; set; }
         public String Body { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime CommitDate { get; set; } = DateTime.Now;
+        
         public List<byte[]> Images { get; set; }
     }
 
