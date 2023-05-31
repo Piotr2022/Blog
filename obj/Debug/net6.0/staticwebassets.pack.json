@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\GigaBlogLogo2.png"
     },
     {
+      "Id": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\GigaBlogMuzyka.mp3",
+      "PackagePath": "staticwebassets\\GigaBlogMuzyka.mp3"
+    },
+    {
       "Id": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

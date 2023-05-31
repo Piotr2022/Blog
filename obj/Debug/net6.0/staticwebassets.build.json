@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KgQNPIcq+9yIQ+nSN7Q4qBgG0Ttz7BqfM+E/Vehc+hE=",
+  "Hash": "WGCKoH7kemruNJNuOq3scEsNZJgXPss9+psdoB0ouHs=",
   "Source": "Blog",
   "BasePath": "_content/Blog",
   "Mode": "Default",
@@ -1137,6 +1137,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\GigaBlogLogo2.png"
+    },
+    {
+      "Identity": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\GigaBlogMuzyka.mp3",
+      "SourceId": "Blog",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\",
+      "BasePath": "_content/Blog",
+      "RelativePath": "GigaBlogMuzyka.mp3",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\GigaBlogMuzyka.mp3"
     },
     {
       "Identity": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\js\\site.js",
