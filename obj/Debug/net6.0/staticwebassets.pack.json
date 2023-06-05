@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Blog.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\GigaBlogGif.gif",
+      "PackagePath": "staticwebassets\\GigaBlogGif.gif"
+    },
+    {
       "Id": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\GigaBlogLogo.jpg",
       "PackagePath": "staticwebassets\\GigaBlogLogo.jpg"
     },
@@ -15,6 +19,14 @@
     {
       "Id": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\GigaBlogMuzyka.mp3",
       "PackagePath": "staticwebassets\\GigaBlogMuzyka.mp3"
+    },
+    {
+      "Id": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\No.png",
+      "PackagePath": "staticwebassets\\No.png"
+    },
+    {
+      "Id": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\Yes.png",
+      "PackagePath": "staticwebassets\\Yes.png"
     },
     {
       "Id": "C:\\Users\\poker\\source\\repos\\Blog\\wwwroot\\css\\site.css",

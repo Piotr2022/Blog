@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
         public String Name { get; set; }
-        public List<Article> ArticlesWithThisTag { get; set; }
+        public ICollection<ArticleTag>? ArticleTagConnection { get; set; }
     }
 }
