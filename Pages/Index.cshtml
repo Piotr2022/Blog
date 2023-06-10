@@ -39,7 +39,7 @@
                     @if (User.Identity.IsAuthenticated && entry.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
                     {
                         <td>
-                            <form method="post" asp-page="./Index" asp-route-id="@entry.Id">
+                            <form method="post" asp-page="./Index" asp-route-id="@entry.Id" id="deleteForm">
                                 <button type="submit" onclick="return showConfirmDialog()"> Usuń</button>
                             </form>
                         </td>
@@ -138,6 +138,11 @@
         confirmImage.src = "/Yes.png"; // Replace with the path to your confirm image
         confirmImage.alt = 'Confirm'; // Add an appropriate alt text for accessibility
         confirmButton.appendChild(confirmImage);
+        confirmButton.addEventListener('click', function () {
+            // Find the form element and submit it
+            var form = document.getElementById('deleteForm');
+            form.submit();
+        });
 
         buttonsDiv.appendChild(confirmButton);
 
