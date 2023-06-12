@@ -1,0 +1,170 @@
+﻿@page
+@using System.Security.Claims;
+@model Blog.Pages.MyArticlesModel
+@{
+    ViewData["Title"] = "Moje artykuły";
+}
+
+<div class="text-center">
+    <h1 class="display-4">10 Ostatnich twoich wpisów</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Data stworzenia</th>
+                <th>Tytuł</th>
+                <th>Treść</th>
+                <th>Id Uzytkownika</th>
+               
+                @if ((User.Identity.IsAuthenticated))
+                {
+                    <th>Narzędzia</th>
+                }
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model.Articles)
+            {
+                <tr>
+                    <td>@entry.Id</td>
+                    <td>@entry.CreationDate</td>
+                    <td>@entry.Title</td>
+                    <td>@Html.Raw(entry.Body)</td>
+                    <td>@entry.UserId</td>
+                    
+
+                    @if (User.Identity.IsAuthenticated && entry.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                    {
+                        <td>
+                            <form method="post" asp-page="./Index" asp-route-id="@entry.Id" id="deleteForm">
+                                <button type="submit" onclick="return showConfirmDialog()"> Usuń</button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+
+    </table>
+   
+</div>
+
+
+@{
+    var prevDisabled = !Model.Articles.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Articles.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Articles.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Articles.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>
+
+<style>
+    .confirm-dialog {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+    }
+
+        .confirm-dialog h4 {
+            margin-top: 0;
+        }
+
+        .confirm-dialog p {
+            margin-bottom: 20px;
+        }
+
+    .confirm-dialog-buttons {
+        display: flex;
+        justify-content: center;
+    }
+
+        .confirm-dialog-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color:white;
+        }
+
+        .confirm-dialog-buttons img {
+            width: 120px;
+            height: 120px;
+        }
+
+</style>
+
+<script>
+    function showConfirmDialog() {
+        var dialog = document.createElement('div');
+        dialog.className = 'confirm-dialog';
+
+        var title = document.createElement('h4');
+        title.innerText = 'Confirmation';
+        dialog.appendChild(title);
+
+        var text = document.createElement('p');
+        text.innerText = 'Are you sure you want to delete this article?';
+        dialog.appendChild(text);
+
+        var buttonsDiv = document.createElement('div');
+        buttonsDiv.className = 'confirm-dialog-buttons';
+
+        var confirmButton = document.createElement('button');
+        confirmButton.type = 'submit';
+ 
+
+        var confirmImage = document.createElement('img');
+        confirmImage.src = "/Yes.png"; // Replace with the path to your confirm image
+        confirmImage.alt = 'Confirm'; // Add an appropriate alt text for accessibility
+        confirmButton.appendChild(confirmImage);
+        confirmButton.addEventListener('click', function () {
+            // Find the form element and submit it
+            var form = document.getElementById('deleteForm');
+            form.submit();
+        });
+
+        buttonsDiv.appendChild(confirmButton);
+
+        var cancelButton = document.createElement('button');
+        cancelButton.type = 'button';
+
+
+        var cancelImage = document.createElement('img');
+        cancelImage.src = "/No.png" // Replace with the path to your cancel image
+        cancelImage.alt = 'Cancel'; // Add an appropriate alt text for accessibilit
+
+        cancelButton.addEventListener('click', function () {
+            dialog.remove();
+        });
+        buttonsDiv.appendChild(cancelButton);
+
+        dialog.appendChild(buttonsDiv);
+
+        cancelButton.appendChild(cancelImage);
+        document.body.appendChild(dialog);
+
+        return false;
+    }
+</script>
+
