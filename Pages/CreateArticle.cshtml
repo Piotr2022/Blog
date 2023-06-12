@@ -10,7 +10,7 @@
     </div>
     <div class="form-group">
         <label>Body</label>
-        <textarea asp-for="Article.Body" class="form-control"></textarea>
+        <textarea asp-for="Article.Body" id="tiny" class="form-control"></textarea>
     </div>
     <input asp-for="Article.UserId" class="form-control" maxlength="100" style="display:none;" value="@User.FindFirst(ClaimTypes.NameIdentifier).Value" />
   
