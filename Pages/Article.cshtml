@@ -9,3 +9,32 @@
 <div>
     @Html.Raw(Model.Article.Body)
 </div>
+
+
+<h2>Dodaj komentarz</h2>
+<form method="post" asp-page-handler="OnPost">
+    <div class="form-group">
+        <label>Treść komentarza</label>
+        <textarea name="NewCommentBody" class="form-control">@Model.NewCommentBody</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Dodaj komentarz</button>
+</form>
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+</br></br>
+
+<h2>Komentarze</h2>
+
+@foreach (var comment in Model.Comments)
+{
+    <div>
+        <p>Autor: @comment.UserId</p>
+        <p>Data utworzenia: @comment.CreationDate</p>
+        <p>@comment.Body</p>
+    </div>
+}
+
+<hr />

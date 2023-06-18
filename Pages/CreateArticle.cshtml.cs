@@ -35,7 +35,14 @@ namespace Blog.Pages
               
                 _context.Articles.Add(Article);
 
-                _context.SaveChanges();
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    throw new DbUpdateException("Error DataBase", e);
+                }
                 Result = "true";
 
 
