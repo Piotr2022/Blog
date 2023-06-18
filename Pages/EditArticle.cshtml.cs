@@ -50,9 +50,8 @@ namespace Blog.Pages
             {
                 return Page();
             }
-            int id = articleDto.Id;
 
-            Article article = await _context.Articles.FindAsync(id);
+            Article article = await _context.Articles.FindAsync(articleDto.Id);
 
             if (article != null)
             {
@@ -68,7 +67,7 @@ namespace Blog.Pages
                     throw new DbUpdateException("Error DataBase", e);
                 }
 
-                return RedirectToPage("Article", new { id });
+                return RedirectToPage("Article", new { articleDto.Id });
 
             }
 

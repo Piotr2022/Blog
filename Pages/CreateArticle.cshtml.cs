@@ -37,8 +37,9 @@ namespace Blog.Pages
 
                 _context.SaveChanges();
                 Result = "true";
-              
 
+
+                return RedirectToPage("/Article", new { Article.Id });
             }
             return Page();
 
