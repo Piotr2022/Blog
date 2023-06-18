@@ -1,0 +1,20 @@
+﻿@page "{id}"
+@using System.Security.Claims
+@model Blog.Pages.EditArticleModel
+
+<form method="post">
+    <input type="hidden" asp-for="articleDto.Id" />
+    <div class="form-group">
+        <label>Title</label>
+        <input asp-for="articleDto.Title" type="text" class="form-control">
+        <input type="hidden" asp-for="articleDto.Title" />
+    </div>
+    <div class="form-group">
+        <label>Body</label>
+        <textarea asp-for="articleDto.Body" id="tiny" class="form-control"></textarea>
+        <input type="hidden" asp-for="articleDto.Body" />
+    </div>
+    <input asp-for="articleDto.UserId" class="form-control" maxlength="100" style="display:none;" value="@User.FindFirst(ClaimTypes.NameIdentifier).Value" />
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

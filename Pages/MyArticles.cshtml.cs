@@ -65,7 +65,7 @@ namespace Blog.Pages
 
         public IActionResult OnPostArticleId(int id)
         {
-            return RedirectToPage("/Article", new { id });
+            return RedirectToPage("/articleDto", new { id });
         }
     }
 }

@@ -31,18 +31,16 @@
                 <tr>
                     <td>@entry.Id</td>
                     <td>@entry.CreationDate</td>
-                    <td>
-                        <form method="post" asp-page-handler="ArticleId" asp-route-id="@entry.Id">
-                            <button type="submit" class="btn-link">@entry.Title</button>
-                        </form>
-                    </td>
+                    <td><a href="/Article/@entry.Id">@entry.Title</a></td>
                     <td>@Html.Raw(entry.Body)</td>
                     <td>@entry.UserId</td>
                     
 
                     @if (User.Identity.IsAuthenticated && entry.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
                     {
+                        
                         <td>
+                            <a href="/EditArticle/@entry.Id">Edytuj</a>
                             <form method="post" asp-page="./Index" asp-route-id="@entry.Id" id="deleteForm">
                                 <button type="submit" onclick="return showConfirmDialog()"> Usuń</button>
                             </form>
