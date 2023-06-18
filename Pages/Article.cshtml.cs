@@ -20,22 +20,20 @@ namespace Blog.Pages
         {
             _context = context;
         }
-
-        [BindProperty]
-        public string ErrorMessage { get; set; }
-
-        [BindProperty]
+        
+        
         public Article Article { get; set; }
 
         [BindProperty]
+        public Comment Comment { get; set; }
+        
         public List<Comment> Comments { get; set; }
 
-        [BindProperty]
-        [MaxLength(256, ErrorMessage = "Maksymalna d³ugoœæ znaków wynosi 256.")]
-        public string NewCommentBody { get; set; }
+        public  int id1 { get; set; }
 
         public IActionResult OnGet(int id)
         {
+            id1 = id;
             Article = _context.Articles.Find(id);
 
             if (Article == null)
@@ -57,27 +55,21 @@ namespace Blog.Pages
         [HttpPost]
         public IActionResult OnPost()
         {
-            if (!string.IsNullOrEmpty(NewCommentBody))
+
+            if (ModelState.IsValid)
             {
                 // Utwórz nowy komentarz
-                var comment = new Comment
-                {
-                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                    CommentedBodyId = Article.Id.ToString(),
-                    Body = NewCommentBody,
-                    CreationDate = DateTime.Now
-                };
+                Comment.CreationDate = DateTime.Now;
+ 
 
                 // Dodaj komentarz do bazy danych
-                _context.Comments.Add(comment);
+                _context.Comments.Add(Comment);
                 _context.SaveChanges();
             }
 
-            Article = _context.Articles.Find(Article.Id);
-            Comments = _context.Comments.Where(c => c.CommentedBodyId == Article.Id.ToString()).OrderByDescending(c => c.CreationDate).ToList();
-            NewCommentBody = string.Empty;
 
-            return Page();
+
+            return RedirectToPage("/Article",id1);
         }
     }
 }
