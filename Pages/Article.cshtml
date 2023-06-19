@@ -5,34 +5,44 @@
     ViewData["Title"] = @Model.Article.Title;
 }
 
-<h1>@Model.Article.Title</h1>
+<div class="container">
+    <h1>@Model.Article.Title</h1>
 
-<div>
-    @Html.Raw(Model.Article.Body)
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Autor: @Model.Article.UserId</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Data utworzenia: @Model.Article.CreationDate</h6>
+            <div class="card-text">@Html.Raw(Model.Article.Body)</div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h2>Dodaj komentarz</h2>
+    <form method="post" asp-page-handler="OnPost">
+        <div class="mb-3">
+            <label for="commentBody" class="form-label">Treść komentarza</label>
+            <textarea id="commentBody" asp-for="Comment.Body" class="form-control" rows="3" maxlength="256"></textarea>
+        </div>
+        <input asp-for="Comment.UserId" class="form-control" maxlength="100" type="hidden" value="@User.FindFirst(ClaimTypes.NameIdentifier).Value" />
+        <input asp-for="Comment.CommentedBodyId" class="form-control" maxlength="100" type="hidden" value="@Model.Article.Id" />
+        <button type="submit" class="btn btn-primary">Dodaj komentarz</button>
+    </form>
+
+    <hr />
+
+    <h2>Komentarze</h2>
+
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Autor: @comment.UserId</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Data utworzenia: @comment.CreationDate</h6>
+                <div class="card-text">@comment.Body</div>
+            </div>
+        </div>
+    }
+
+    
 </div>
-
-
-<h2>Dodaj komentarz</h2>
-<form method="post" asp-page-handler="OnPost">
-    <div class="form-group">
-        <label>Treść komentarza</label>
-        <input asp-for="Comment.Body" class="form-control" maxlength="256" />
-    </div>
-    <input asp-for="Comment.UserId" class="form-control" maxlength="100" style="display:none;" value="@User.FindFirst(ClaimTypes.NameIdentifier).Value" />
-    <input asp-for="Comment.CommentedBodyId" class="form-control" maxlength="100" style="display:none;" value="@Model.Article.Id" />
-    <button type="submit" class="btn btn-primary">Dodaj komentarz</button>
-</form>
-
-
-<h2>Komentarze</h2>
-
-@foreach (var comment in Model.Comments)
-{
-    <div>
-        <p>Autor: @comment.UserId</p>
-        <p>Data utworzenia: @comment.CreationDate</p>
-        <p>@comment.Body</p>
-    </div>
-}
-
-<hr />

@@ -5,57 +5,48 @@
     ViewData["Title"] = "Strona główna";
 }
 
-<div class="text-center">
-    <h1 class="display-4">10 Ostatnich wpisów</h1>
+</style>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Data stworzenia</th>
-                <th>Tytuł</th>
-                <th>Treść</th>
-                <th>Id Uzytkownika</th>
-               
-                @if ((User.Identity.IsAuthenticated))
-                {
-                    <th>Narzędzia</th>
-                }
+<div class="container">
+    <h1 class="text-center mt-5">10 Ostatnich wpisów</h1>
 
+    @foreach (var entry in Model.Articles)
+    {
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <img src="/path/to/placeholder-image.jpg" class="card-img-top" alt="Article Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@entry.Title</h5>
+                        <p class="card-text">@Html.Raw(entry.Body.Substring(0, Math.Min(entry.Body.Length, 23)).TrimEnd())
+                            @if (entry.Body.Length > 20)
+                            {
+                                <span>...</span>
+                            }</p>
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var entry in Model.Articles)
-            {
-                <tr>
-                    <td>@entry.Id</td>
-                    <td>@entry.CreationDate</td>
-                    <td>
-                        <a href="/Article/@entry.Id">@entry.Title</a>
-                    </td>
-                    <td>@Html.Raw(entry.Body)</td>
-                    <td>@entry.UserId</td>
-                    
-
-                    @if (User.Identity.IsAuthenticated && entry.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
-                    {
-                        <td>
-                            <a href="/EditArticle/@entry.Id">Edytuj</a>
-                            <form method="post" asp-page="./Index" asp-route-id="@entry.Id" id="deleteForm">
-                                <button type="submit" onclick="return showConfirmDialog()"> Usuń</button>
-                            </form>
-                        </td>
-                    }
-                </tr>
-            }
-        </tbody>
-
-    </table>
-   
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="text-muted">@entry.CreationDate.ToString("yyyy-MM-dd")</small>
+                            </div>
+                            <div>
+                                <a href="/Article/@entry.Id" class="btn btn-primary mr-2">Czytaj więcej</a>
+                                @if (User.Identity.IsAuthenticated && entry.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                                {
+                                    <a href="/EditArticle/@entry.Id" class="btn btn-secondary">Edytuj</a>
+                                    <form method="post" asp-page="./Index" asp-route-id="@entry.Id" id="deleteForm" style="display: inline;">
+                                        <button type="submit" onclick="return showConfirmDialog()" class="btn btn-danger">Usuń</button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
-
-
 @{
     var prevDisabled = !Model.Articles.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.Articles.HasNextPage ? "disabled" : "";
@@ -77,6 +68,7 @@
 </a>
 
 <style>
+
     .confirm-dialog {
         position: fixed;
         top: 50%;
