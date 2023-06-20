@@ -16,7 +16,12 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">@entry.Title</h5>
-                        <p class="card-text">@Html.Raw(entry.Body.Substring(0, Math.Min(entry.Body.Length, 153)).TrimEnd())
+                        <p class="card-text">
+          
+
+                        @Html.Raw(entry.Body.Replace("img src=","img height=\"90px\" width=\"90px\" src="))
+
+                              
                             @if (entry.Body.Length > 150)
                             {
                                 <span>...</span>
