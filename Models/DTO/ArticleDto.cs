@@ -9,6 +9,7 @@ namespace Blog.Models.DTO
         public String Title { get; set; }
 
         public String Body { get; set; }
+        public String ArticleTagsNames { get; set; }
 
         public String UserId { get; set; }
 
