@@ -33,10 +33,10 @@
                                 <a href="/Article/@entry.Id" class="btn btn-primary mr-2">Czytaj więcej</a>
                                 @if (User.Identity.IsAuthenticated && entry.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
                                 {
-                                    <a href="/EditArticle/@entry.Id" class="btn btn-secondary">Edytuj</a>
-                                    <form method="post" asp-page="./Index" asp-route-id="@entry.Id" id="deleteForm" style="display: inline;">
-                                        <button type="submit" onclick="return showConfirmDialog()" class="btn btn-danger">Usuń</button>
-                                    </form>
+                                        <a href="/EditArticle/@entry.Id" class="btn btn-secondary">Edytuj</a>
+                                <form method="post" asp-page="./Index" asp-route-id="@entry.Id" class="delete-form" style="display: inline;">
+                                    <button type="submit" onclick="return showConfirmDialog(event)" class="btn btn-danger">Usuń</button>
+                                </form>
                                 }
                             </div>
                         </div>
@@ -109,7 +109,11 @@
 </style>
 
 <script>
-    function showConfirmDialog() {
+    function showConfirmDialog(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var form = event.target.closest('.delete-form'); // Find the closest form element
+
         var dialog = document.createElement('div');
         dialog.className = 'confirm-dialog';
 
@@ -126,15 +130,13 @@
 
         var confirmButton = document.createElement('button');
         confirmButton.type = 'submit';
- 
 
         var confirmImage = document.createElement('img');
         confirmImage.src = "/Yes.png"; // Replace with the path to your confirm image
         confirmImage.alt = 'Confirm'; // Add an appropriate alt text for accessibility
         confirmButton.appendChild(confirmImage);
         confirmButton.addEventListener('click', function () {
-            // Find the form element and submit it
-            var form = document.getElementById('deleteForm');
+            // Submit the form
             form.submit();
         });
 
@@ -143,10 +145,9 @@
         var cancelButton = document.createElement('button');
         cancelButton.type = 'button';
 
-
         var cancelImage = document.createElement('img');
         cancelImage.src = "/No.png" // Replace with the path to your cancel image
-        cancelImage.alt = 'Cancel'; // Add an appropriate alt text for accessibilit
+        cancelImage.alt = 'Cancel'; // Add an appropriate alt text for accessibility
 
         cancelButton.addEventListener('click', function () {
             dialog.remove();
@@ -161,7 +162,6 @@
         return false;
     }
 </script>
-
 
 
 
