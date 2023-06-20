@@ -13,6 +13,16 @@
             <h5 class="card-title">Autor: @Model.Article.UserId</h5>
             <h6 class="card-subtitle mb-2 text-muted">Data utworzenia: @Model.Article.CreationDate</h6>
             <div class="card-text">@Html.Raw(Model.Article.Body)</div>
+            <p class="card-text">
+                Tags:@if (Model.Tags.Count == 0)
+                {
+                    <span>Puste</span>
+                }
+                @foreach (var tag in Model.Tags)
+                {
+                    <span class="badge bg-primary">@tag.Name</span>
+                }
+            </p>
         </div>
     </div>
 
@@ -43,6 +53,4 @@
             </div>
         </div>
     }
-
-    
 </div>

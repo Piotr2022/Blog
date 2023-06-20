@@ -20,20 +20,21 @@ namespace Blog.Pages
         {
             _context = context;
         }
-        
-        
+
         public Article Article { get; set; }
 
         [BindProperty]
         public Comment Comment { get; set; }
-        
+
         public List<Comment> Comments { get; set; }
 
-        public  int id1 { get; set; }
+        public int idToPost { get; set; }
+
+        public List<Tag> Tags { get; set; }
 
         public IActionResult OnGet(int id)
         {
-            id1 = id;
+            idToPost = id;
             Article = _context.Articles.Find(id);
 
             if (Article == null)
@@ -49,27 +50,24 @@ namespace Blog.Pages
                 Comments = new List<Comment>();
             }
 
+            Tags = _context.Tags.Where(t => _context.Set<ArticleTag>().Any(at => at.ArticleId == Article.Id && at.TagId == t.Id)).ToList();
             return Page();
         }
 
         [HttpPost]
         public IActionResult OnPost()
         {
-
             if (ModelState.IsValid)
             {
                 // Utwórz nowy komentarz
                 Comment.CreationDate = DateTime.Now;
- 
 
                 // Dodaj komentarz do bazy danych
                 _context.Comments.Add(Comment);
                 _context.SaveChanges();
             }
 
-
-
-            return RedirectToPage("/Article",id1);
+            return RedirectToPage("/Article", new { idToPost });
         }
     }
 }

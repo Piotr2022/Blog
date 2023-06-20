@@ -3,55 +3,66 @@ using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 
 namespace Blog.Pages
 {
-    public class CreateArticle : PageModel
+    public class CreateArticleModel : PageModel
     {
         [BindProperty]
         public Article Article { get; set; } = new Article();
 
+        [BindProperty]
+        public string TagNames { get; set; }
+
         private readonly ApplicationDbContext _context;
 
-        public string? Result { get; set; }
-        public CreateArticle(ApplicationDbContext context)
+        public string Result { get; set; }
+
+        public CreateArticleModel(ApplicationDbContext context)
         {
-            _context=context;
+            _context = context;
         }
+
         public void OnGet()
         {
-
         }
-
 
         public IActionResult OnPost()
         {
-            
             if (ModelState.IsValid)
             {
-              
                 Article.CreationDate = DateTime.Now;
-              
-                _context.Articles.Add(Article);
 
-                try
+                var tagNames = TagNames.Split(',').Select(t => t.Trim());
+
+                _context.Articles.Add(Article);
+                _context.SaveChanges(); 
+
+                foreach (var tagName in tagNames)
                 {
-                    _context.SaveChanges();
+                    var existingTag = _context.Tags.FirstOrDefault(t => t.Name.ToUpper() == tagName.ToUpper());
+
+                    if (existingTag == null)
+                    {
+                        existingTag = new Tag { Name = tagName };
+                        _context.Tags.Add(existingTag);
+                        _context.SaveChanges(); // Save changes to generate TagId
+                    }
+
                 }
-                catch (DbUpdateException e)
-                {
-                    throw new DbUpdateException("Error DataBase", e);
-                }
+
+                _context.SaveChanges();
+
                 Result = "true";
 
-
-                return RedirectToPage("/Article", new { Article.Id });
+                return RedirectToPage("/Article", new { id = Article.Id });
             }
+
             return Page();
-
-
-
         }
     }
 }

@@ -1,26 +1,30 @@
 ﻿@page
-@using System.Security.Claims;
-@model Blog.Pages.CreateArticle
+@using System.Security.Claims
+@model Blog.Pages.CreateArticleModel
 @{
 }
+
 <form method="post">
     <div class="form-group">
         <label>Title</label>
-        <input asp-for="Article.Title"  type="text" class="form-control">
+        <input asp-for="Article.Title" type="text" class="form-control">
     </div>
     <div class="form-group">
         <label>Body</label>
         <textarea asp-for="Article.Body" id="tiny" class="form-control"></textarea>
     </div>
+    <div class="form-group">
+        <label>Tags (separated by comma)</label>
+        <input type="text" class="form-control" asp-for="TagNames" />
+    </div>
     <input asp-for="Article.UserId" class="form-control" maxlength="100" style="display:none;" value="@User.FindFirst(ClaimTypes.NameIdentifier).Value" />
-  
+
     <button type="submit" class="btn btn-primary">Create</button>
 </form>
-
 
 @if (!string.IsNullOrEmpty(Model.Result))
 {
     <div class="alert alert-success" style="width:30%;" role="alert">
-        Dodano artykuł
+        Article added successfully
     </div>
 }
