@@ -40,7 +40,7 @@ namespace Blog.Pages
                 var tagNames = TagNames.Split(',').Select(t => t.Trim());
 
                 _context.Articles.Add(Article);
-                _context.SaveChanges(); 
+                _context.SaveChanges();
 
                 foreach (var tagName in tagNames)
                 {
@@ -53,9 +53,11 @@ namespace Blog.Pages
                         _context.SaveChanges(); // Save changes to generate TagId
                     }
 
+                    // Create the association in the ArticleTag table
+                    var articleTag = new ArticleTag { ArticleId = Article.Id, TagId = existingTag.Id };
+                    _context.ArticleTag.Add(articleTag);
+                    _context.SaveChanges();
                 }
-
-                _context.SaveChanges();
 
                 Result = "true";
 

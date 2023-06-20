@@ -14,11 +14,10 @@
     {
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <img src="/path/to/placeholder-image.jpg" class="card-img-top" alt="Article Image">
                     <div class="card-body">
                         <h5 class="card-title">@entry.Title</h5>
-                        <p class="card-text">@Html.Raw(entry.Body.Substring(0, Math.Min(entry.Body.Length, 23)).TrimEnd())
-                            @if (entry.Body.Length > 20)
+                        <p class="card-text">@Html.Raw(entry.Body.Substring(0, Math.Min(entry.Body.Length, 153)).TrimEnd())
+                            @if (entry.Body.Length > 150)
                             {
                                 <span>...</span>
                             }</p>

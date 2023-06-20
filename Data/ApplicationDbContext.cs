@@ -17,8 +17,7 @@ namespace Blog.Data
         public DbSet<Article> Articles { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Tag> Tags { get; set; }
-
-        public DbSet<Image> Images { get; set; } 
+        public DbSet<ArticleTag> ArticleTag { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

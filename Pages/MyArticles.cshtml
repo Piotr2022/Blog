@@ -4,50 +4,47 @@
 @{
     ViewData["Title"] = "Moje artykuły";
 }
-
 <div class="container">
     <h1 class="text-center mt-5">10 Ostatnich wpisów</h1>
 
     @foreach (var entry in Model.Articles)
     {
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="card mb-4">
-                    <img src="/path/to/placeholder-image.jpg" class="card-img-top" alt="Article Image">
-                    <div class="card-body">
-                        <h5 class="card-title">@entry.Title</h5>
-                        <p class="card-text">
-                            @Html.Raw(entry.Body.Substring(0, Math.Min(entry.Body.Length, 23)).TrimEnd())
-                            @if (entry.Body.Length > 20)
-                            {
-                                <span>...</span>
-                            }
-                        </p>
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">@entry.Title</h5>
+                    <p class="card-text">
+                        @Html.Raw(entry.Body.Substring(0, Math.Min(entry.Body.Length, 153)).TrimEnd())
+                        @if (entry.Body.Length > 150)
+                        {
+                            <span>...</span>
+                        }
+                    </p>
 
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <small class="text-muted">@entry.CreationDate.ToString("yyyy-MM-dd")</small>
-                            </div>
-                            <div>
-                                <a href="/Article/@entry.Id" class="btn btn-primary mr-2">Czytaj więcej</a>
-                                @if (User.Identity.IsAuthenticated && entry.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
-                                {
-                                    <a href="/EditArticle/@entry.Id" class="btn btn-secondary">Edytuj</a>
-                                    <form method="post" asp-page="./Index" asp-route-id="@entry.Id" id="deleteForm" style="display: inline;">
-                                        <button type="submit" onclick="return showConfirmDialog()" class="btn btn-danger">Usuń</button>
-                                    </form>
-                                }
-                            </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-muted"><b>Author:</b> @entry.UserId</small><br>
+                            <small class="text-muted"><b>Created:</b> @entry.CreationDate.ToString("yyyy-MM-dd")</small>
+                        </div>
+                        <div>
+                            <a href="/Article/@entry.Id" class="btn btn-primary mr-2">Czytaj więcej</a>
+                            @if (User.Identity.IsAuthenticated && entry.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                            {
+                                <a href="/EditArticle/@entry.Id" class="btn btn-secondary">Edytuj</a>
+                                <form method="post" asp-page="./Index" asp-route-id="@entry.Id" id="deleteForm" style="display: inline;">
+                                    <button type="submit" onclick="return showConfirmDialog()" class="btn btn-danger">Usuń</button>
+                                </form>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     }
 </div>
-
 
 @{
     var prevDisabled = !Model.Articles.HasPreviousPage ? "disabled" : "";
