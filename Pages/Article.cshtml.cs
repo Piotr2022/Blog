@@ -44,7 +44,6 @@ namespace Blog.Pages
 
             Comments = _context.Comments.Where(c => c.CommentedBodyId == id.ToString()).OrderByDescending(c => c.CreationDate).ToList();
 
-            // SprawdŸ czy komentarze istniej¹ i przypisz do Model.Comments
             if (Comments == null)
             {
                 Comments = new List<Comment>();
@@ -59,10 +58,7 @@ namespace Blog.Pages
         {
             if (ModelState.IsValid)
             {
-                // Utwórz nowy komentarz
                 Comment.CreationDate = DateTime.Now;
-
-                // Dodaj komentarz do bazy danych
                 _context.Comments.Add(Comment);
                 _context.SaveChanges();
             }
