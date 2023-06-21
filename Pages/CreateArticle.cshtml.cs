@@ -50,10 +50,9 @@ namespace Blog.Pages
                     {
                         existingTag = new Tag { Name = tagName };
                         _context.Tags.Add(existingTag);
-                        _context.SaveChanges(); // Save changes to generate TagId
+                        _context.SaveChanges();
                     }
 
-                    // Create the association in the ArticleTag table
                     var articleTag = new ArticleTag { ArticleId = Article.Id, TagId = existingTag.Id };
                     _context.ArticleTag.Add(articleTag);
                     _context.SaveChanges();

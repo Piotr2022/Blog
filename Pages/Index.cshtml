@@ -8,7 +8,7 @@
 </style>
 
 <div class="container">
-    <h1 class="text-center mt-5">10 Ostatnich wpisów</h1>
+    <h1 class="text-center mt-5">Lastest posts</h1>
 
     @foreach (var entry in Model.Articles)
     {
@@ -35,12 +35,12 @@
                             <small class="text-muted"><b>Created:</b> @entry.CreationDate.ToString("yyyy-MM-dd")</small>
                             </div>
                             <div>
-                                <a href="/Article/@entry.Id" class="btn btn-primary mr-2">Czytaj więcej</a>
+                                <a href="/Article/@entry.Id" class="btn btn-primary mr-2">Read More</a>
                                 @if (User.Identity.IsAuthenticated && entry.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
                                 {
-                                        <a href="/EditArticle/@entry.Id" class="btn btn-secondary">Edytuj</a>
+                                        <a href="/EditArticle/@entry.Id" class="btn btn-secondary">Edit</a>
                                 <form method="post" asp-page="./Index" asp-route-id="@entry.Id" class="delete-form" style="display: inline;">
-                                    <button type="submit" onclick="return showConfirmDialog(event)" class="btn btn-danger">Usuń</button>
+                                    <button type="submit" onclick="return showConfirmDialog(event)" class="btn btn-danger">Delete</button>
                                 </form>
                                 }
                             </div>

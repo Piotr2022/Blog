@@ -57,33 +57,26 @@ namespace Blog.Pages
             {
                 var articleTagsToRemove = _context.ArticleTag.Where(at => at.ArticleId == id).ToList();
 
-                foreach (var articleTagToRemove in articleTagsToRemove)
-                {
-                    var isTagUsed = _context.ArticleTag.Any(at => at.TagId == articleTagToRemove.TagId && at.ArticleId != id);
+                _context.Articles.Remove(entry);
+                _context.SaveChanges();
 
+
+                List<Tag> allTags = _context.Tags.ToList();
+                bool isTagUsed;
+                foreach (var existingArticleTag in allTags)
+                {
+                    isTagUsed = _context.ArticleTag.Any(at => at.TagId == existingArticleTag.Id);
                     if (!isTagUsed)
                     {
-                        var tag = _context.Tags.Find(articleTagToRemove.TagId);
-                        if (tag != null)
-                        {
-                            _context.Tags.Remove(tag);
-                        }
+                        _context.Tags.Remove(existingArticleTag);
                     }
 
-                    _context.ArticleTag.Remove(articleTagToRemove);
                 }
 
-                _context.Articles.Remove(entry);
                 _context.SaveChanges();
             }
 
             return RedirectToPage("/MyArticles");
         }
-
-
-        //public IActionResult OnPostArticleId(int id)
-        //{
-        //    return RedirectToPage("/articleDto", new { id });
-        //}
     }
 }

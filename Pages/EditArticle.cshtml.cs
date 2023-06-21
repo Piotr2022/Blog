@@ -47,14 +47,14 @@ namespace Blog.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPost()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            Article article = await _context.Articles.FindAsync(articleDto.Id);
+            Article article = _context.Articles.Find(articleDto.Id);
 
             if (article != null)
             {
@@ -66,6 +66,7 @@ namespace Blog.Pages
                 foreach (var existingArticleTag in existingArticleTags)
                 {
                     _context.ArticleTag.Remove(existingArticleTag);
+                    article.ArticleTagConnection.Remove(existingArticleTag);
                 }
 
 
@@ -74,30 +75,45 @@ namespace Blog.Pages
                 {
                     var articleTagNames = articleDto.ArticleTagsNames.Split(',').Select(t => t.Trim());
 
-                    foreach (var articleTagName in articleTagNames)
+                    foreach(var tagName in articleTagNames)
                     {
-                        var tag = _context.Tags.FirstOrDefault(t => t.Name == articleTagName);
-                        if (tag == null)
-                        {
-                            tag = new Tag { Name = articleTagName };
-                            _context.Tags.Add(tag);
-                        }
+                        var existingTag = _context.Tags.FirstOrDefault(t => t.Name.ToUpper() == tagName.ToUpper());
 
-                        article.ArticleTagConnection.Add(new ArticleTag { Tag = tag });
+                        if (existingTag == null)
+                        {
+                            existingTag = new Tag { Name = tagName };
+                            _context.Tags.Add(existingTag);
+                            _context.SaveChanges();
+                        }
+                        var articleTag = new ArticleTag { ArticleId = articleDto.Id, TagId = existingTag.Id};
+                        _context.ArticleTag.Add(articleTag);
+                        _context.SaveChanges();
                     }
                 }
 
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateException e)
-                {
-                    throw new DbUpdateException("Error DataBase", e);
-                }
 
                 // Usuñ nieu¿ywane tagi
-                var tagsToRemove = existingArticleTags.Select(at => at.TagId).Distinct();
+
+                List<Tag> allTags = _context.Tags.ToList();
+                bool isTagUsed;
+                foreach (var existingArticleTag in allTags)
+                {
+                    isTagUsed = _context.ArticleTag.Any(at => at.TagId == existingArticleTag.Id);
+                    if (!isTagUsed)
+                    {
+                        _context.Tags.Remove(existingArticleTag);
+                    }
+
+                }
+                /*
+                foreach (var tag in tagsToRemove)
+                {
+                    _context.Tags.Remove(tag);
+                }
+
+                _context.SaveChanges();
+                *//*
+                tagsToRemove = existingArticleTags.Select(at => at.TagId).Distinct();
                 foreach (var tagId in tagsToRemove)
                 {
                     var isTagUsed = _context.ArticleTag.Any(at => at.TagId == tagId && at.ArticleId != article.Id);
@@ -109,16 +125,9 @@ namespace Blog.Pages
                             _context.Tags.Remove(tagToRemove);
                         }
                     }
-                }
+                }*/
 
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateException e)
-                {
-                    throw new DbUpdateException("Error DataBase", e);
-                }
+                _context.SaveChanges();
 
 
                 return RedirectToPage("Article", new { articleDto.Id });
