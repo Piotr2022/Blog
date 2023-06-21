@@ -51,15 +51,32 @@ namespace Blog.Pages
         public IActionResult OnPost(int id)
         {
             var entry = _context.Articles.Find(id);
+
             if (entry != null)
             {
+                var articleTagsToRemove = _context.ArticleTag.Where(at => at.ArticleId == id).ToList();
+
+                foreach (var articleTagToRemove in articleTagsToRemove)
+                {
+                    var isTagUsed = _context.ArticleTag.Any(at => at.TagId == articleTagToRemove.TagId && at.ArticleId != id);
+
+                    if (!isTagUsed)
+                    {
+                        var tag = _context.Tags.Find(articleTagToRemove.TagId);
+                        if (tag != null)
+                        {
+                            _context.Tags.Remove(tag);
+                        }
+                    }
+
+                    _context.ArticleTag.Remove(articleTagToRemove);
+                }
+
                 _context.Articles.Remove(entry);
                 _context.SaveChanges();
             }
 
-
             return RedirectToPage("/Index");
-        }        
-
+        }
     }
 }

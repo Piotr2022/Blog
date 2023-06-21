@@ -111,6 +111,16 @@ namespace Blog.Pages
                     }
                 }
 
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException e)
+                {
+                    throw new DbUpdateException("Error DataBase", e);
+                }
+
+
                 return RedirectToPage("Article", new { articleDto.Id });
             }
 
